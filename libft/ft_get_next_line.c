@@ -6,12 +6,12 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 13:36:39 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/15 03:47:31 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:54:23 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include "libft.h"
+#include <limits.h>
 
 static size_t	find_next_line_break(char *str, size_t i)
 {
@@ -25,7 +25,7 @@ static size_t	find_next_line_break(char *str, size_t i)
 	return (ptr - str);
 }
 
-char	*get_substr(char	*buffer)
+char	*get_substr(char *buffer)
 {
 	char	*str;
 	size_t	i;
@@ -44,9 +44,9 @@ char	*get_substr(char	*buffer)
 	str[j] = '\0';
 	if (!*str)
 		return (free(str), free(buffer), NULL);
-	free (buffer);
+	free(buffer);
 	return (str);
-}	
+}
 
 char	*get_lines(char *buffer)
 {
@@ -93,7 +93,7 @@ char	*ft_get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
 	read_content = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!read_content)
+	if (read_content == NULL)
 		return (NULL);
 	while (!(ft_strchr(read_buffer, '\n')) && read_bytes != 0)
 	{
@@ -104,7 +104,7 @@ char	*ft_get_next_line(int fd)
 			return (NULL);
 		}
 		*(read_content + read_bytes) = '\0';
-		read_buffer = ft_strjoin(read_buffer, read_content);
+		read_buffer = ft_strjoingnl(read_buffer, read_content);
 	}
 	free(read_content);
 	read_content = get_lines(read_buffer);

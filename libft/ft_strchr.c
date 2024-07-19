@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:25:16 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/06/20 10:49:47 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:27:53 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strchr(const char *s, int c)
 	int				i;
 	unsigned char	ch;
 
+	if (s == NULL)
+		return (NULL);
 	ch = (char)c;
 	i = 0;
 	while (s[i] != '\0')

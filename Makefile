@@ -1,6 +1,6 @@
 NAME = so_long
 CFLAGS = -g #-Wall -Werror -Wextra -g
-SRCS = so_longsrc/main.c
+SRCS = so_longsrc/main.c so_longsrc/handleinput.c
 OBJS = $(SRCS:.c=.o)
 
 # Paths to ft_printf, libft, and MinilibX directories
@@ -16,7 +16,7 @@ MINILIBX_LIB = $(MINILIBX_DIR)/libmlx.a
 # Targets
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(PRINTF_DIR)/* $(LIBFT_DIR)/*
 	@make -C $(PRINTF_DIR)
 	@make -C $(LIBFT_DIR)
 	# Make sure to include -L$(MINILIBX_DIR) for MinilibX
