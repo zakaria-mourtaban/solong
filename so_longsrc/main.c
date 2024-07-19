@@ -6,14 +6,16 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:17:47 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/19 19:28:18 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/20 01:13:49 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-void	floodfillcheck(int i, int j)
+void	floodfillcheck(int i, int j, char **mapcpy)
 {
+	if (mapcpy[i][j] == 1)
+		return ;
 	if (g_map.map[i][j] == '1')
 		return ;
 	if (g_map.map[i][j] == 'E')
@@ -24,15 +26,18 @@ void	floodfillcheck(int i, int j)
 	if (i == 0 || j == 0 || j == g_map.width - 1 || i == g_map.height - 1)
 		ft_error("map walls leak");
 	printf("i:%d,j:%d\n", i, j);
-	floodfillcheck(i - 1, j);
-	floodfillcheck(i + 1, j);
-	floodfillcheck(i, j - 1);
-	floodfillcheck(i, j + 1);
+	mapcpy[i][j] = 1;
+	floodfillcheck(i + 1, j, mapcpy);
+	floodfillcheck(i, j + 1, mapcpy);
+	floodfillcheck(i, j - 1, mapcpy);
+	floodfillcheck(i - 1, j, mapcpy);
 }
 
 void	checkmaperror(void)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	**mapcpy;
 
 	i = g_map.height;
 	while (i > 0)
@@ -41,7 +46,16 @@ void	checkmaperror(void)
 			ft_error("map length error");
 		i--;
 	}
-	floodfillcheck(g_map.spawnx, g_map.spawny);
+	mapcpy = (char **)malloc(g_map.height * sizeof(char *));
+	if (mapcpy == NULL)
+		ft_error("alloc error");
+	j = g_map.height;
+	while (j > 0)
+	{
+		mapcpy[j - 1] = ft_calloc(g_map.width, sizeof(int));
+		j--;
+	}
+	floodfillcheck(g_map.spawnx, g_map.spawny, mapcpy);
 	if (g_map.exitfound == 0)
 		ft_error("exit unreachable");
 }
