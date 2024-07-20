@@ -6,106 +6,53 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:17:47 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/20 01:13:49 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:54:42 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-void	floodfillcheck(int i, int j, char **mapcpy)
-{
-	if (mapcpy[i][j] == 1)
-		return ;
-	if (g_map.map[i][j] == '1')
-		return ;
-	if (g_map.map[i][j] == 'E')
-	{
-		g_map.exitfound = 1;
-		return ;
-	}
-	if (i == 0 || j == 0 || j == g_map.width - 1 || i == g_map.height - 1)
-		ft_error("map walls leak");
-	printf("i:%d,j:%d\n", i, j);
-	mapcpy[i][j] = 1;
-	floodfillcheck(i + 1, j, mapcpy);
-	floodfillcheck(i, j + 1, mapcpy);
-	floodfillcheck(i, j - 1, mapcpy);
-	floodfillcheck(i - 1, j, mapcpy);
-}
+t_map		g_map;
+t_frames	g_frames;
 
-void	checkmaperror(void)
-{
-	int		i;
-	int		j;
-	char	**mapcpy;
-
-	i = g_map.height;
-	while (i > 0)
-	{
-		if (g_map.width != ft_strlen(g_map.map[i - 1]))
-			ft_error("map length error");
-		i--;
-	}
-	mapcpy = (char **)malloc(g_map.height * sizeof(char *));
-	if (mapcpy == NULL)
-		ft_error("alloc error");
-	j = g_map.height;
-	while (j > 0)
-	{
-		mapcpy[j - 1] = ft_calloc(g_map.width, sizeof(int));
-		j--;
-	}
-	floodfillcheck(g_map.spawnx, g_map.spawny, mapcpy);
-	if (g_map.exitfound == 0)
-		ft_error("exit unreachable");
-}
-
-void	findmappoints(void)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < g_map.height - 1)
-	{
-		j = 0;
-		while (j < g_map.width - 1)
-		{
-			// printf("i:%d,j:%d\n", i, j);
-			if (g_map.map[i][j] && g_map.map[i][j] == 'P')
-			{
-				g_map.spawnx = i;
-				g_map.spawny = j;
-			}
-			if (g_map.map[i][j] && g_map.map[i][j] == 'E')
-			{
-				g_map.exitx = i;
-				g_map.exity = j;
-			}
-			if (g_map.map[i][j] && !(g_map.map[i][j] == 'E'
-					|| g_map.map[i][j] == 'P' || g_map.map[i][j] == 'C'
-					|| g_map.map[i][j] == '1' || g_map.map[i][j] == '0'))
-				ft_error("map has unallowed chars you should free here");
-			j++;
-		}
-		i++;
-	}
-}
-
-void	print_strings(char **str_array)
-{
-	// Iterate through the array until we encounter a NULL pointer
-	for (int i = 0; str_array[i] != NULL; i++)
-	{
-		printf("%s\n", str_array[i]);
-	}
-}
-
-int	main(int ac, char **av)
+void	maperror(int ac, char **av)
 {
 	handleinput(ac);
 	parsemap(av[1]);
 	findmappoints();
 	checkmaperror();
+}
+
+int	main(int ac, char **av)
+{
+	int		width;
+	int		height;
+	void	*mlx;
+	void	*mlx_win;
+
+	int i, j;
+	i = 0;
+	maperror(ac, av);
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, (g_map.width) * 32, (g_map.height - 1) * 32,
+			"So_long");
+	fillframes(mlx, &width, &height);
+	while (i < g_map.height)
+	{
+		j = 0;
+		while (j < g_map.width)
+		{
+			if (g_map.map[i][j] == '1')
+				mlx_put_image_to_window(mlx, mlx_win, g_frames.wallfill, j * 32,
+					i * 32);
+			if (g_map.map[i][j] == 'P')
+				mlx_put_image_to_window(mlx, mlx_win, g_frames.wallbottom, j * 32,
+					i * 32);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(mlx, mlx_win, g_frames.wallfill, 0, 0);
+	mlx_loop(mlx);
 	return (0);
 }

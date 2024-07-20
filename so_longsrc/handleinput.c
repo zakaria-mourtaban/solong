@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:44:33 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/19 17:53:55 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/20 11:01:21 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handleinput(int ac)
 	if (ac == 1)
 		ft_error("please provide a valid map path");
 	if (ac > 2)
-		ft_error("please only proved a map path\nie:./so_long/path/to/map.ber");
+		ft_error("please only provide a map path\nie:./so_long/path/to/map.ber");
 }
 
 int	getmapheight(char *filepath)
