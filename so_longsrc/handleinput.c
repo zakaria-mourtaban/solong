@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:44:33 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/21 21:57:08 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 01:48:03 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ft_error(char *msg)
 void	handleinput(int ac)
 {
 	if (ac == 1)
-		ft_error("please provide a valid map path");
+		freeatexit("Error\nplease provide a valid map path");
 	if (ac > 2)
-		ft_error("please only provide a map path\nie:./so_long/path/to/map.ber");
+		freeatexit("Error\nprovide a map path\nie:./so_long/path/to/map.ber");
 }
 
 int	getmapheight(char *filepath)
@@ -35,13 +35,15 @@ int	getmapheight(char *filepath)
 	i = 0;
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
-		ft_error("error opening file");
+		freeatexit("Error\nerror opening file");
 	line = ft_get_next_line(fd);
 	while (line != NULL)
 	{
 		i++;
+		free(line);
 		line = ft_get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 	return (i + 1);
 }
@@ -54,11 +56,24 @@ int	getmapwidth(char *filepath)
 
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
-		ft_error("error opening file");
+		freeatexit("Error\nerror opening file");
 	buffer = ft_get_next_line(fd);
 	len = ft_strlen(buffer);
 	while (buffer != NULL)
+	{
+		free(buffer);
 		buffer = ft_get_next_line(fd);
+		if (buffer != NULL && len != (int)ft_strlen(buffer))
+		{
+			if (buffer[ft_strlen(buffer)] == '\n')
+			{
+				printf("%d", (int)ft_strlen(buffer));
+				freeatexit("Error\nmap not rectangular");
+				free(buffer);
+			}
+		}
+	}
+	free(buffer);
 	return (len - 1);
 }
 
@@ -70,26 +85,23 @@ void	parsemap(char *filepath)
 
 	g_map.filepath = filepath;
 	if (ft_strncmp((filepath + (ft_strlen(filepath) - 4)), ".ber", 4) != 0)
-		ft_error("unsupported filetype");
+		freeatexit("Error\nunsupported filetype");
+	if (getmapwidth(g_map.filepath) < 5 || getmapheight(g_map.filepath) < 3)
+		freeatexit("map too small");
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
-		ft_error("error opening file");
+		freeatexit("Error\nerror opening file");
 	line = ft_strdup("");
 	buffer = malloc(BUFFER_SIZE + 1);
 	while (read(fd, buffer, BUFFER_SIZE) != 0)
 	{
 		buffer[BUFFER_SIZE] = '\0';
-		line = ft_strjoin(line, buffer);
+		line = ft_strjoingnl(line, buffer);
 	}
 	free(buffer);
 	g_map.map = ft_split(line, '\n');
+	free(line);
+	g_map.width = getmapwidth(g_map.filepath);
+	g_map.height = getmapheight(g_map.filepath);
 	close(fd);
-	g_map.exitfound = 0;
-	g_map.width = getmapwidth(filepath);
-	g_map.height = getmapheight(filepath);
-	g_map.direction = 0;
-	g_map.playerfound = 0;
-	g_map.collectablecounter = 0;
-	g_map.collected = 0;
-	printf("readmap\n");
 }

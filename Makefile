@@ -1,6 +1,6 @@
 NAME = so_long
 CFLAGS = -Wall -Werror -Wextra -g
-SRCS = so_longsrc/main.c so_longsrc/handleinput.c so_longsrc/fillframes.c  so_longsrc/checkmap.c 
+SRCS = so_longsrc/main.c so_longsrc/handleinput.c so_longsrc/fillframes.c  so_longsrc/checkmap.c so_longsrc/free.c so_longsrc/draw.c so_longsrc/draw2.c so_longsrc/move.c so_longsrc/utils.c
 OBJS = $(SRCS:%.c=%.o)
 
 # Paths to ft_printf, libft, and MinilibX directories
@@ -16,7 +16,7 @@ MINILIBX_LIB = $(MINILIBX_DIR)/libmlx.a
 # Targets
 all: $(NAME)
 
-$(NAME): $(OBJS) $(PRINTF_LIB) $(LIBFT_LIB)
+$(NAME): $(OBJS) $(PRINTF_LIB) $(LIBFT_LIB) $(PRINTF_DIR)/*.c $(LIBFT_DIR)/*.c $(MINILIBX_DIR)/*.c
 	gcc $(CFLAGS) -o $(NAME) $(OBJS) -Iso_longsrc -L$(PRINTF_DIR) -L$(LIBFT_DIR) -L$(MINILIBX_DIR) -lftprintf -lft -lmlx -lXext -lX11 -lm
 
 %.o: so_longsrc/%.c so_longsrc/solong.h

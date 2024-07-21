@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 22:16:06 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/21 22:16:17 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 00:41:32 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,58 +18,61 @@ void	movetop(int i, int j)
 		g_map.collected++;
 	if (g_map.map[i - 1][j] == 'E'
 		&& g_map.collectablecounter == g_map.collected)
-		exit(0);
+		freeatexit("");
 	if (g_map.map[i - 1][j] != '1' && g_map.map[i - 1][j] != 'E')
 	{
 		g_map.map[i][j] = '0';
 		g_map.map[i - 1][j] = 'P';
+		g_map.movecount++;
 	}
-	printf("%d\n", g_map.collected);
 	g_map.direction = 1;
 }
+
 void	movebottom(int i, int j)
 {
 	if (g_map.map[i + 1][j] == 'C')
 		g_map.collected++;
 	if (g_map.map[i + 1][j] == 'E'
 		&& g_map.collectablecounter == g_map.collected)
-		exit(0);
+		freeatexit("");
 	if (g_map.map[i + 1][j] != '1' && g_map.map[i + 1][j] != 'E')
 	{
 		g_map.map[i][j] = '0';
 		g_map.map[i + 1][j] = 'P';
+		g_map.movecount++;
 	}
-	printf("%d\n", g_map.collected);
 	g_map.direction = 3;
 }
+
 void	moveleft(int i, int j)
 {
 	if (g_map.map[i][j - 1] == 'C')
 		g_map.collected++;
 	if (g_map.map[i][j - 1] == 'E'
 		&& g_map.collectablecounter == g_map.collected)
-		exit(0);
+		freeatexit("");
 	if (g_map.map[i][j - 1] != '1' && g_map.map[i][j - 1] != 'E')
 	{
 		g_map.map[i][j] = '0';
 		g_map.map[i][j - 1] = 'P';
+		g_map.movecount++;
 	}
-	printf("%d\n", g_map.collected);
 	g_map.direction = 0;
 }
+
 void	moveright(int i, int j)
 {
 	if (g_map.map[i][j + 1] == 'C')
 		g_map.collected++;
 	if (g_map.map[i][j + 1] == 'E'
 		&& g_map.collectablecounter == g_map.collected)
-		exit(0);
+		freeatexit("");
 	if (g_map.map[i][j + 1] != '1' && g_map.map[i][j + 1] != 'E')
 	{
 		g_map.map[i][j] = '0';
 		g_map.map[i][j + 1] = 'P';
+		g_map.movecount++;
 	}
-	printf("%d\n", g_map.collected);
 	g_map.direction = 2;
 }
 

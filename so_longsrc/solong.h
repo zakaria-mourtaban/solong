@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 01:15:43 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/21 22:13:51 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 00:16:44 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 typedef struct s_map
 {
 	char		**map;
-	char 		*filepath; // is av do not free
+	char *filepath; // is av do not free
 	int			width;
 	int			height;
 	int			spawnx;
@@ -37,6 +37,7 @@ typedef struct s_map
 	int			exitfound;
 	int			direction;
 	int			playerfound;
+	int			movecount;
 }				t_map;
 
 typedef struct s_frames
@@ -68,6 +69,20 @@ extern int		g_frame;
 extern t_mlx	g_mlx;
 extern t_map	g_map;
 extern t_frames	g_frames;
+
+void			freeatexit(char *msg);
+void			drawl(int i, int j);
+void			drawpbottom(int i, int j);
+void			drawpleft(int i, int j);
+void			drawpright(int i, int j);
+void			drawplayer(int i, int j);
+void			drawgem(int i, int j);
+void			movetop(int i, int j);
+void			movebottom(int i, int j);
+void			moveleft(int i, int j);
+void			moveright(int i, int j);
+void			moveplayer(int key);
+void			maperror(int ac, char **av);
 void			ft_error(char *msg);
 void			handleinput(int ac);
 int				getmapheight(char *filepath);

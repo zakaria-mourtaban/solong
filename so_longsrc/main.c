@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:17:47 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/21 22:16:59 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 01:58:51 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,7 @@ t_frames	g_frames;
 t_mlx		g_mlx;
 int			g_frame;
 
-void	maperror(int ac, char **av)
-{
-	handleinput(ac);
-	parsemap(av[1]);
-	findmappoints();
-	checkmaperror();
-}
-
-
-
-int	drawframes(void)
+void	drawframes(void)
 {
 	int	i;
 	int	j;
@@ -38,16 +28,28 @@ int	drawframes(void)
 		j = 0;
 		while (j < g_map.width)
 		{
-			if (g_map.map[i][j] == '1')
-				mlx_put_image_to_window(g_mlx.mlx, g_mlx.mlx_win,
-					g_frames.wallfill, j * 32, i * 32);
+			drawl(i, j);
+			j++;
+		}
+		i++;
+	}
+}
+
+int	drawlight(void)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < g_map.height - 1)
+	{
+		j = 0;
+		while (j < g_map.width)
+		{
 			if (g_map.map[i][j] == 'P')
 				drawplayer(i, j);
 			if (g_map.map[i][j] == 'C')
 				drawgem(i, j);
-			if (g_map.map[i][j] == 'E')
-				mlx_put_image_to_window(g_mlx.mlx, g_mlx.mlx_win, g_frames.exit,
-					j * 32, i * 32);
 			if (g_map.map[i][j] == '0')
 				mlx_put_image_to_window(g_mlx.mlx, g_mlx.mlx_win,
 					g_frames.empty, j * 32, i * 32);
@@ -62,28 +64,44 @@ int	drawframes(void)
 	return (0);
 }
 
+void	putmovestr(void)
+{
+	char	*line;
+	char	*num;
+
+	mlx_put_image_to_window(g_mlx.mlx, g_mlx.mlx_win, g_frames.wallfill, 1 * 32,
+		0);
+	mlx_put_image_to_window(g_mlx.mlx, g_mlx.mlx_win, g_frames.wallfill, 2 * 32,
+		0);
+	mlx_put_image_to_window(g_mlx.mlx, g_mlx.mlx_win, g_frames.wallfill, 3 * 32,
+		0);
+	num = ft_itoa(g_map.movecount);
+	line = ft_strjoin("Move count: ", num);
+	mlx_string_put(g_mlx.mlx, g_mlx.mlx_win, 10, 10, 0xFFFFFF, line);
+	free(line);
+	free(num);
+}
+
 int	keyhook(int keycode, void *param)
 {
 	(void)param;
 	if (keycode == 65307)
-	{
-		ft_printf("should be freeing all memory");
-		exit(0);
-	}
+		freeatexit("");
 	moveplayer(keycode);
+	putmovestr();
 	return (0);
 }
 
 int	gameloop(void)
 {
-	drawframes();
+	drawlight();
 	return (0);
 }
 
 int	closewindow(void)
 {
-	ft_printf("should be freeing and exiting");
-	exit(0);
+	freeatexit("");
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -99,6 +117,7 @@ int	main(int ac, char **av)
 	mlx_hook(g_mlx.mlx_win, 17, 0, closewindow, NULL);
 	mlx_key_hook(g_mlx.mlx_win, keyhook, NULL);
 	mlx_loop_hook(g_mlx.mlx, gameloop, NULL);
+	drawframes();
 	mlx_loop(g_mlx.mlx);
 	return (0);
 }

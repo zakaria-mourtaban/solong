@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:30:31 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/21 21:55:43 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 01:26:51 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	floodfillcheck(int i, int j, char **mapcpy)
 		return ;
 	}
 	if (i == 0 || j == 0 || j == g_map.width - 1 || i == g_map.height - 1)
-		ft_error("map walls leak");
+		freeatexit("Error\nmap walls leak");
 	mapcpy[i][j] = 1;
 	floodfillcheck(i + 1, j, mapcpy);
 	floodfillcheck(i, j + 1, mapcpy);
@@ -34,20 +34,12 @@ void	floodfillcheck(int i, int j, char **mapcpy)
 
 void	checkmaperror(void)
 {
-	int		i;
 	int		j;
 	char	**mapcpy;
 
-	i = g_map.height;
-	while (i > 0)
-	{
-		if (g_map.width != (int)ft_strlen(g_map.map[i - 1]))
-			ft_error("map length error");
-		i--;
-	}
 	mapcpy = (char **)malloc(g_map.height * sizeof(char *));
 	if (mapcpy == NULL)
-		ft_error("alloc error");
+		freeatexit("allocation error");
 	j = g_map.height;
 	while (j > 0)
 	{
@@ -55,8 +47,10 @@ void	checkmaperror(void)
 		j--;
 	}
 	floodfillcheck(g_map.spawnx, g_map.spawny, mapcpy);
-	if (g_map.exitfound == 0)
-		ft_error("exit unreachable");
+	j = g_map.height - 1;
+	while (j >= 0)
+		free(mapcpy[j--]);
+	free(mapcpy);
 }
 
 int	cond(int i, int j)
@@ -68,6 +62,22 @@ int	cond(int i, int j)
 	return (0);
 }
 
+void	logic(int *i, int *j)
+{
+	if (g_map.map[*i][*j] && g_map.map[*i][*j] == 'P')
+	{
+		g_map.spawnx = *i;
+		g_map.spawny = *j;
+		g_map.playerfound = 1;
+		(*j)++;
+	}
+	if (g_map.map[*i][*j] && g_map.map[*i][*j] == 'E')
+	{
+		g_map.exitx = *i;
+		g_map.exity = *j;
+	}
+}
+
 void	findmappoints(void)
 {
 	int	i;
@@ -77,26 +87,16 @@ void	findmappoints(void)
 	while (i < g_map.height - 1)
 	{
 		j = 0;
-		while (j < g_map.width - 1)
+		while (j < g_map.width)
 		{
-			if (g_map.map[i][j] && g_map.map[i][j] == 'P')
-			{
-				g_map.spawnx = i;
-				g_map.spawny = j;
-				j++;
-			}
 			if (g_map.map[i][j] && g_map.map[i][j] == 'C')
 				g_map.collectablecounter++;
-			if (g_map.map[i][j] && g_map.map[i][j] == 'E')
-			{
-				g_map.exitx = i;
-				g_map.exity = j;
-			}
-			if (g_map.map[i][j] && g_map.map[i][j] == 'P' && g_map.playerfound == 1)
-				ft_printf("multiple players found should error and exit");
 			if (cond(i, j))
-				ft_error("map has unallowed chars you should free here");
+				freeatexit("Error\nunallowed chars");
+			logic(&i, &j);
 			j++;
+			if (g_map.map[i][j] && g_map.map[i][j] == 'P' && g_map.playerfound == 1)
+				freeatexit("Error\nmultiple players found");
 		}
 		i++;
 	}
