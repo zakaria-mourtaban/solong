@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:30:31 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/20 11:31:07 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/21 21:55:43 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,17 @@ void	findmappoints(void)
 			{
 				g_map.spawnx = i;
 				g_map.spawny = j;
+				j++;
 			}
+			if (g_map.map[i][j] && g_map.map[i][j] == 'C')
+				g_map.collectablecounter++;
 			if (g_map.map[i][j] && g_map.map[i][j] == 'E')
 			{
 				g_map.exitx = i;
 				g_map.exity = j;
 			}
+			if (g_map.map[i][j] && g_map.map[i][j] == 'P' && g_map.playerfound == 1)
+				ft_printf("multiple players found should error and exit");
 			if (cond(i, j))
 				ft_error("map has unallowed chars you should free here");
 			j++;

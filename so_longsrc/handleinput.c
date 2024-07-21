@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:44:33 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/20 11:01:21 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/21 21:57:08 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,9 @@ void	parsemap(char *filepath)
 	g_map.exitfound = 0;
 	g_map.width = getmapwidth(filepath);
 	g_map.height = getmapheight(filepath);
+	g_map.direction = 0;
+	g_map.playerfound = 0;
+	g_map.collectablecounter = 0;
+	g_map.collected = 0;
+	printf("readmap\n");
 }

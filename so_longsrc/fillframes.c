@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 15:14:38 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/20 15:52:23 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/21 22:14:07 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,20 @@
 
 void	fillidle(void *mlx, int *width, int *height)
 {
-	g_frames.idle1 = mlx_xpm_file_to_image(mlx, "./frames/idle/0.xpm", width,
-			height);
-	g_frames.idle2 = mlx_xpm_file_to_image(mlx, "./frames/idle/1.xpm", width,
-			height);
-}
-
-void	fillrun(void *mlx, int *width, int *height)
-{
-	g_frames.run = (void **)malloc(sizeof(void *) * 8);
-	g_frames.run[0] = mlx_xpm_file_to_image(mlx, "./frames/run/0.xpm", width,
-			height);
-	g_frames.run[1] = mlx_xpm_file_to_image(mlx, "./frames/run/1.xpm", width,
-			height);
-	g_frames.run[2] = mlx_xpm_file_to_image(mlx, "./frames/run/2.xpm", width,
-			height);
-	g_frames.run[3] = mlx_xpm_file_to_image(mlx, "./frames/run/3.xpm", width,
-			height);
-	g_frames.run[4] = mlx_xpm_file_to_image(mlx, "./frames/run/4.xpm", width,
-			height);
-	g_frames.run[5] = mlx_xpm_file_to_image(mlx, "./frames/run/5.xpm", width,
-			height);
-	g_frames.run[6] = mlx_xpm_file_to_image(mlx, "./frames/run/6.xpm", width,
-			height);
-	g_frames.run[7] = mlx_xpm_file_to_image(mlx, "./frames/run/7.xpm", width,
-			height);
+	g_frames.idleright1 = mlx_xpm_file_to_image(mlx, "./frames/idleright/0.xpm",
+			width, height);
+	g_frames.idleright2 = mlx_xpm_file_to_image(mlx, "./frames/idleright/1.xpm",
+			width, height);
+	g_frames.idleleft1 = mlx_xpm_file_to_image(mlx, "./frames/idleleft/0.xpm",
+			width, height);
+	g_frames.idleleft2 = mlx_xpm_file_to_image(mlx, "./frames/idleleft/1.xpm",
+			width, height);
+	g_frames.idlebottom1 = mlx_xpm_file_to_image(mlx,
+			"./frames/idlebottom/0.xpm", width, height);
+	g_frames.idlebottom2 = mlx_xpm_file_to_image(mlx,
+			"./frames/idlebottom/1.xpm", width, height);
+	g_frames.idletop = mlx_xpm_file_to_image(mlx, "./frames/idletop/0.xpm",
+			width, height);
 }
 
 void	filldie(void *mlx, int *width, int *height)
@@ -62,30 +51,23 @@ void	filldie(void *mlx, int *width, int *height)
 
 void	fillwalls(void *mlx, int *width, int *height)
 {
-	g_frames.wallbottom = mlx_xpm_file_to_image(mlx,
-			"./frames/walls/wallbottom.xpm", width, height);
-	g_frames.walltop = mlx_xpm_file_to_image(mlx, "./frames/walls/walltop.xpm",
-			width, height);
-	g_frames.wallright = mlx_xpm_file_to_image(mlx,
-			"./frames/walls/wallright.xpm", width, height);
-	g_frames.wallleft = mlx_xpm_file_to_image(mlx,
-			"./frames/walls/wallleft.xpm", width, height);
 	g_frames.wallfill = mlx_xpm_file_to_image(mlx,
 			"./frames/walls/wallfill.xpm", width, height);
-	g_frames.walltopleft = mlx_xpm_file_to_image(mlx,
-			"./frames/walls/walltopleft.xpm", width, height);
-	g_frames.walltopright = mlx_xpm_file_to_image(mlx,
-			"./frames/walls/walltopright.xpm", width, height);
-	g_frames.wallbottomleft = mlx_xpm_file_to_image(mlx,
-			"./frames/walls/wallbottomleft.xpm", width, height);
-	g_frames.wallbottomright = mlx_xpm_file_to_image(mlx,
-			"./frames/walls/wallbottomright.xpm", width, height);
+	g_frames.exit = mlx_xpm_file_to_image(mlx, "./frames/exit.xpm", width,
+			height);
 }
 
 void	fillframes(void *mlx, int *width, int *height)
 {
 	fillidle(mlx, width, height);
 	filldie(mlx, width, height);
-	fillrun(mlx, width, height);
 	fillwalls(mlx, width, height);
+	g_frames.gem0 = mlx_xpm_file_to_image(mlx, "./frames/collectable/gem0.xpm",
+			width, height);
+	g_frames.gem1 = mlx_xpm_file_to_image(mlx, "./frames/collectable/gem1.xpm",
+			width, height);
+	g_frames.gem2 = mlx_xpm_file_to_image(mlx, "./frames/collectable/gem2.xpm",
+			width, height);
+	g_frames.empty = mlx_xpm_file_to_image(mlx, "./frames/empty.xpm",
+			width, height);
 }
