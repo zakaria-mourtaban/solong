@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:44:33 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/22 02:29:31 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:31:29 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	getmapwidth(char *filepath)
 		buffer = ft_get_next_line(fd);
 		if (buffer != NULL && len != ft_strlenc(buffer))
 		{
-			printf("%ld,%ld", len, ft_strlenc(buffer));
 			freeatexit("Error\nmap not rectangular");
 			free(buffer);
 		}
