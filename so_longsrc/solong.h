@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 01:15:43 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/22 00:16:44 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:29:43 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 typedef struct s_map
 {
 	char		**map;
-	char *filepath; // is av do not free
+	char		*filepath;
 	int			width;
 	int			height;
 	int			spawnx;
@@ -70,12 +70,15 @@ extern t_mlx	g_mlx;
 extern t_map	g_map;
 extern t_frames	g_frames;
 
+size_t			ft_strlenc(const char *s);
 void			freeatexit(char *msg);
 void			drawl(int i, int j);
 void			drawpbottom(int i, int j);
 void			drawpleft(int i, int j);
 void			drawpright(int i, int j);
 void			drawplayer(int i, int j);
+void			drawframes(void);
+int				drawlight(void);
 void			drawgem(int i, int j);
 void			movetop(int i, int j);
 void			movebottom(int i, int j);

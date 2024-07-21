@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:44:33 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/22 01:48:03 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:29:31 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,26 @@ int	getmapwidth(char *filepath)
 {
 	int		fd;
 	char	*buffer;
-	int		len;
+	size_t	len;
 
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 		freeatexit("Error\nerror opening file");
 	buffer = ft_get_next_line(fd);
-	len = ft_strlen(buffer);
+	len = ft_strlenc(buffer);
 	while (buffer != NULL)
 	{
 		free(buffer);
 		buffer = ft_get_next_line(fd);
-		if (buffer != NULL && len != (int)ft_strlen(buffer))
+		if (buffer != NULL && len != ft_strlenc(buffer))
 		{
-			if (buffer[ft_strlen(buffer)] == '\n')
-			{
-				printf("%d", (int)ft_strlen(buffer));
-				freeatexit("Error\nmap not rectangular");
-				free(buffer);
-			}
+			printf("%ld,%ld", len, ft_strlenc(buffer));
+			freeatexit("Error\nmap not rectangular");
+			free(buffer);
 		}
 	}
 	free(buffer);
-	return (len - 1);
+	return (len);
 }
 
 void	parsemap(char *filepath)

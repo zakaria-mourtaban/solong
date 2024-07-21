@@ -6,11 +6,29 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 22:20:10 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/22 00:58:17 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:29:35 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
+
+size_t	ft_strlenc(const char *s)
+{
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	i = 0;
+	if (s == NULL)
+		return (0);
+	while (s[i] != '\0')
+	{
+		if (s[i] != '\n')
+			j++;
+		i++;
+	}
+	return (j);
+}
 
 void	maperror(int ac, char **av)
 {

@@ -6,15 +6,39 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 00:16:51 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/22 01:22:00 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/22 02:05:34 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-void	freeatexit(char *msg)
+void	free1(void)
 {
-	int i;
+	if (g_frames.empty != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.empty);
+	if (g_frames.exit != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.exit);
+	if (g_frames.wallfill != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.wallfill);
+	if (g_frames.die && g_frames.die[0] != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.die[0]);
+	if (g_frames.die && g_frames.die[1] != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.die[1]);
+	if (g_frames.die && g_frames.die[2] != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.die[2]);
+	if (g_frames.die && g_frames.die[3] != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.die[3]);
+	if (g_frames.die && g_frames.die[4] != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.die[4]);
+	if (g_frames.die && g_frames.die[5] != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.die[5]);
+	if (g_frames.die && g_frames.die[6] != NULL)
+		mlx_destroy_image(g_mlx.mlx, g_frames.die[6]);
+}
+
+void	free2(void)
+{
+	int	i;
 
 	i = 0;
 	if (g_mlx.mlx != NULL && g_mlx.mlx_win != NULL)
@@ -36,26 +60,12 @@ void	freeatexit(char *msg)
 		mlx_destroy_image(g_mlx.mlx, g_frames.gem2);
 	if (g_frames.potion != NULL)
 		mlx_destroy_image(g_mlx.mlx, g_frames.potion);
-	if (g_frames.empty != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.empty);
-	if (g_frames.exit != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.exit);
-	if (g_frames.wallfill != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.wallfill);
-	if (g_frames.die && g_frames.die[0] != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.die[0]);
-	if (g_frames.die && g_frames.die[1] != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.die[1]);
-	if (g_frames.die && g_frames.die[2] != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.die[2]);
-	if (g_frames.die && g_frames.die[3] != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.die[3]);
-	if (g_frames.die && g_frames.die[4] != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.die[4]);
-	if (g_frames.die && g_frames.die[5] != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.die[5]);
-	if (g_frames.die && g_frames.die[6] != NULL)
-		mlx_destroy_image(g_mlx.mlx, g_frames.die[6]);
+}
+
+void	freeatexit(char *msg)
+{
+	free1();
+	free2();
 	if (g_frames.die)
 		free(g_frames.die);
 	if (g_frames.idlebottom1 != NULL)
