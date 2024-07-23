@@ -1,6 +1,6 @@
 # So Long And Thanks For All The Fish!
 
-![image](https://github.com/user-attachments/assets/cbceef76-aa4f-4c15-97d5-615af163da3e))
+![image](https://github.com/user-attachments/assets/cbceef76-aa4f-4c15-97d5-615af163da3e)
 
 ## Overview
 This project is a 2D game developed in C using MiniLibX(for linux), focusing on graphics, sprite animation, and basic gameplay mechanics. The goal is to navigate a map, collect items, and reach the exit while avoiding obstacles.
