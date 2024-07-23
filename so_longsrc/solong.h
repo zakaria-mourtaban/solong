@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 01:15:43 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/22 02:29:43 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:50:17 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_map
 	int			exitfound;
 	int			direction;
 	int			playerfound;
+	int			collectablesreached;
 	int			movecount;
 }				t_map;
 

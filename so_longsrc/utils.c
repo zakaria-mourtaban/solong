@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 22:20:10 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/22 02:29:35 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:53:33 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,11 @@ void	maperror(int ac, char **av)
 	g_map.playerfound = 0;
 	g_map.collectablecounter = 0;
 	g_map.collected = 0;
+	g_map.collectablesreached = 0;
 	findmappoints();
 	checkmaperror();
 	if (g_map.exitfound == 0)
 		freeatexit("Error\nexit unreachable");
+	if (g_map.collectablesreached != g_map.collectablecounter)
+		freeatexit("Error\na collectable is unreachable");
 }

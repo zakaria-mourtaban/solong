@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 10:20:02 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/15 01:57:17 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:00:46 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 char				*ft_get_next_line(int fd);
 char				*ft_strjoingnl(char *buffer, const char *content);
 
-#endif
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 #endif

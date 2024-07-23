@@ -16,7 +16,7 @@ MINILIBX_LIB = $(MINILIBX_DIR)/libmlx.a
 # Targets
 all: $(NAME)
 
-$(NAME): $(OBJS) $(PRINTF_LIB) $(LIBFT_LIB) $(PRINTF_DIR)/*.c $(LIBFT_DIR)/*.c $(MINILIBX_DIR)/*.c
+$(NAME): $(OBJS) $(PRINTF_LIB) $(LIBFT_LIB) $(MINILIBX_LIB) $(PRINTF_DIR)/*.c $(LIBFT_DIR)/*.c $(MINILIBX_DIR)/*.c
 	gcc $(CFLAGS) -o $(NAME) $(OBJS) -Iso_longsrc -L$(PRINTF_DIR) -L$(LIBFT_DIR) -L$(MINILIBX_DIR) -lftprintf -lft -lmlx -lXext -lX11 -lm
 
 %.o: so_longsrc/%.c so_longsrc/solong.h
@@ -28,10 +28,14 @@ $(PRINTF_LIB):
 $(LIBFT_LIB):
 	@make -C $(LIBFT_DIR)
 
+$(MINILIBX_LIB):
+	@make -C $(MINILIBX_DIR)
+
 clean:
 	rm -f $(OBJS)
 	$(MAKE) -C $(PRINTF_DIR) clean
 	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(MINILIBX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)

@@ -6,7 +6,7 @@
 /*   By: zmourtab <zakariamourtaban@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:30:31 by zmourtab          #+#    #+#             */
-/*   Updated: 2024/07/22 02:01:08 by zmourtab         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:01:48 by zmourtab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	floodfillcheck(int i, int j, char **mapcpy)
 {
 	if (mapcpy[i][j] == 1)
 		return ;
+	if (g_map.map[i][j] == 'C')
+		g_map.collectablesreached++;
 	if (g_map.map[i][j] == '1')
 		return ;
 	if (g_map.map[i][j] == 'E')
